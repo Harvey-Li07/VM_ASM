@@ -5,3 +5,6 @@ share:
 clear:
 	rm includes/compiled/CMethods.so
 	rm includes/compiled/CStrings.so
+
+pushable:
+	rm -rf __pycache__

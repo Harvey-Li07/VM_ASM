@@ -4,7 +4,7 @@ import Panics as Panics, abc
 
 class VMObject:
 
-    def __init__(self, callable: bool, callback:any, annoations: str = None, AutoCall: bool = False, args:list[str] = None):
+    def __init__(self, callable: bool, callback:any, annoations: str = "", AutoCall: bool = False, args:list[str] = None):
         #it will spawn a new VMObject
         self.callable = callable
         self.callback: function | None = (None, callback)[callable]
@@ -16,7 +16,7 @@ class VMObject:
                                       "[init]": VMObject.__initializer}
         self.__threadable__ = False
         self.__AutoCall__ = AutoCall
-        if not self.__AutoCall__:
+        if self.__AutoCall__:
             self.Run()
     
     def __call(self):
@@ -26,10 +26,10 @@ class VMObject:
             self.callback(self.args)
     
     def CompileAnnotations(self): # annotations contained in brakets connected with &
-        if len(self.annotations.split("&")) > 0:
+        if len(self.annotations.split("&")) > 0 or self.annotations != "":
             annot = self.annotations.split("&")
             for x in annot:
-                if x in list(self.AcceptableAnnotations.keys):
+                if x in list(self.AcceptableAnnotations.keys()):
                     self.AcceptableAnnotations[x]()
                 else:
                     raise Panics.ObjectPanic("An invalid annotation has been specified")

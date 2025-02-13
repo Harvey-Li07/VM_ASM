@@ -35,3 +35,7 @@ class SysIO_IMPL(SysIO):
             ThreadableObject = VMObject(callable=True, callback=callback, AutoCall=True)
             ThreadableObject.__threadable__ = True
             return ThreadableObject
+        
+    @override
+    def Syscall(a: str, *args):
+        ...
