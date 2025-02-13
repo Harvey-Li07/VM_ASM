@@ -19,7 +19,7 @@ class ExecutableClass(Execuatable):
     def Call(self):
         for x in self.InstructionSet:
             current_step: int = self.InstructionSet.index(x)
-            current_argument = self.Arguments[current_step]
+            current_argument = self.args[current_step]
             x(*current_argument)
 
 
@@ -56,6 +56,6 @@ class Compiler(CompilerBase):
     def SpawnExecutable(self, annot: str = None):
         Exec = ExecutableClass(annot)
         Exec.InstructionSet = self.__CompiledInstructions__[0]
-        Exec.Arguments = self.__CompiledInstructions__[1]
+        Exec.args = self.__CompiledInstructions__[1]
         Exec.size = (int(sys.getsizeof(Exec)/ 100), 10)[int(sys.getsizeof(Exec)/ 100) < 1]
         return buffer.BufferMethods.AutoAllocate(Exec)

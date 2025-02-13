@@ -7,7 +7,7 @@ class Execuatable(abc.ABC, VMObject):
         self.TYPE = "Executable"
         self.InstructionSet: list
         self.ValidInstructions: dict
-        self.Arguments: list[str]
+        self.args: list[str]
         self.size: int = 0
 
     @abc.abstractmethod

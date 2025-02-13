@@ -4,7 +4,7 @@ import Panics as Panics, abc
 
 class VMObject:
 
-    def __init__(self, callable: bool, callback:any, args: str = None, annoations: str = None):
+    def __init__(self, callable: bool, callback:any, annoations: str = None, AutoCall: bool = False, args:list[str] = None):
         #it will spawn a new VMObject
         self.callable = callable
         self.callback: function | None = (None, callback)[callable]
@@ -15,7 +15,9 @@ class VMObject:
                                       "[verbal]": VMObject.__verbal, 
                                       "[init]": VMObject.__initializer}
         self.__threadable__ = False
-        self.__exit_signal__ = False
+        self.__AutoCall__ = AutoCall
+        if not self.__AutoCall__:
+            self.Run()
     
     def __call(self):
         if not self.callable:
@@ -24,18 +26,17 @@ class VMObject:
             self.callback(self.args)
     
     def CompileAnnotations(self): # annotations contained in brakets connected with &
-        annot = self.annotations.split("&")
-        for x in annot:
-            if x in list(self.AcceptableAnnotations.keys):
-                self.AcceptableAnnotations[x]()
-            else:
-                raise Panics.ObjectPanic("An invalid annotation has been specified")
+        if len(self.annotations.split("&")) > 0:
+            annot = self.annotations.split("&")
+            for x in annot:
+                if x in list(self.AcceptableAnnotations.keys):
+                    self.AcceptableAnnotations[x]()
+                else:
+                    raise Panics.ObjectPanic("An invalid annotation has been specified")
     
     def Run(self):
+        self.CompileAnnotations()
         self.__call()
-        while True:
-            if self.__exit_signal__:
-                raise Panics.ExitSignal("Exit!")
 
     #Below are definition of annotations
     def __silent():
