@@ -4,10 +4,10 @@ import Panics as Panics, abc
 
 class VMObject:
 
-    def __init__(self, callable: bool, callback:any, annoations: str = "", AutoCall: bool = False, args:list[str] = None):
+    def __init__(self, callable: bool, annoations: str = "", AutoCall: bool = False, args:list[str] = None):
         #it will spawn a new VMObject
         self.callable = callable
-        self.callback: function | None = (None, callback)[callable]
+        self.callback: list
         self.annotations = annoations
         self.args = args
         self.TYPE: str
@@ -23,7 +23,9 @@ class VMObject:
         if not self.callable:
             raise Panics.ObjectPanic("Calling an uncallable object ... nothing will be done")
         else:
-            self.callback(self.args)
+            for x in self.callback:
+                for j in self.args:
+                    x(j)
     
     def CompileAnnotations(self): # annotations contained in brakets connected with &
         if len(self.annotations.split("&")) > 0 or self.annotations != "":

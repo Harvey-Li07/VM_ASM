@@ -39,7 +39,7 @@ class Register:
                 self.Contents.clear()
                 self.Contents.append((Null, Buffers.BufferMethods.RetrieveContents(InfoBlock))[
 
-                    len(Buffers.BufferMethods.RetrieveContents(InfoBlock)) <= self.MaxContentsLength
+                    len(str(Buffers.BufferMethods.RetrieveContents(InfoBlock))) <= self.MaxContentsLength
 
                     ])
             else:
@@ -48,9 +48,9 @@ class Register:
             raise ValueError(f"Incorrect type of register, expecting type Register but got {self.Type}")
     
     def PopContents(self):
-        "Return the first value in the register then delete it from the register."
+        "Return the first value in the register ."
         content = self.Contents[0]
-        self.Contents.remove(self.Contents[0])
+       # self.Contents.remove(self.Contents[0])
         return content
 
     def RandAccess(self, index: int):

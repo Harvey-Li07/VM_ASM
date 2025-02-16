@@ -1,5 +1,5 @@
 from Pack.SysIO import VMObject
-import abc
+import abc, sys
 
 class Execuatable(abc.ABC, VMObject):
     def __init__(self, annoations = None): #spawn an execuatble object
@@ -8,7 +8,9 @@ class Execuatable(abc.ABC, VMObject):
         self.InstructionSet: list
         self.ValidInstructions: dict
         self.args: list[str]
-        self.size: int = 0
+
+    @abc.abstractmethod
+    def __len__(self) -> int: ...
 
     @abc.abstractmethod
     def Call(self) -> None: ...

@@ -14,13 +14,27 @@ class ExecutableClass(Execuatable):
         self.LocationInBuffer: tuple
         self.callable = True
         self.callback = self.Call
+        self.TYPE = "Executable"
 
     @typing.override
     def Call(self):
+        for x in range(0, self.InstructionSet.__len__()):
+            print(self.InstructionSet[x], *self.args[x])
+            self.InstructionSet[x](*self.args[x])
+        '''
         for x in self.InstructionSet:
             current_step: int = self.InstructionSet.index(x)
             current_argument = self.args[current_step]
             x(*current_argument)
+        '''
+
+    @typing.override
+    def Run(self):
+        self.Call()
+
+    @typing.override
+    def __len__(self):
+        return (int(sys.getsizeof(self)/ 100), 10)[int(sys.getsizeof(self)/ 100) < 1]
 
 
 class Compiler(CompilerBase):
@@ -47,9 +61,9 @@ class Compiler(CompilerBase):
                 line: list = x.split(sep=' ')
                 keywords.keywords[x[1:]](*line)
             else:
-                line: list = x.split(sep=" ")
+                line: list[str] = x.split(sep=" ")
                 CompiledInstruction.append(getattr(VMMethods, line[0]))
-                Arguments.append(line[1:])
+                Arguments.append([line[1].replace(",", ""), line[2]])
         self.__CompiledInstructions__ = [CompiledInstruction, Arguments]
     
     @typing.override
@@ -57,5 +71,4 @@ class Compiler(CompilerBase):
         Exec = ExecutableClass(annot)
         Exec.InstructionSet = self.__CompiledInstructions__[0]
         Exec.args = self.__CompiledInstructions__[1]
-        Exec.size = (int(sys.getsizeof(Exec)/ 100), 10)[int(sys.getsizeof(Exec)/ 100) < 1]
         return buffer.BufferMethods.AutoAllocate(Exec)
