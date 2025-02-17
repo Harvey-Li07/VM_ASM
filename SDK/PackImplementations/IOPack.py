@@ -26,8 +26,16 @@ class SysIO_IMPL(SysIO):
             f.close()
     
     @override
-    def SpawnThreadableObject(handle, callback, *args):
-        ThreadableObject = VMObject(callable=True, callback=callback, args=args)
-        ThreadableObject.__threadable__ = True
-        ThreadableObject.__exit_signal__ = False
-        return ThreadableObject
+    def SpawnThreadableObject(callback, *args):
+        if len(args) > 0:
+            ThreadableObject = VMObject(callable=True, callback=callback, AutoCall=True,args=list(args))
+            ThreadableObject.__threadable__ = True
+            return ThreadableObject
+        else:
+            ThreadableObject = VMObject(callable=True, callback=callback, AutoCall=True)
+            ThreadableObject.__threadable__ = True
+            return ThreadableObject
+        
+    @override
+    def Syscall(a: str, *args):
+        ...

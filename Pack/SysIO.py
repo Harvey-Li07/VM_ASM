@@ -4,10 +4,10 @@ import Panics as Panics, abc
 
 class VMObject:
 
-    def __init__(self, callable: bool, callback:any, args: str = None, annoations: str = None):
+    def __init__(self, callable: bool, annoations: str = "", AutoCall: bool = False, args:list[str] = None):
         #it will spawn a new VMObject
         self.callable = callable
-        self.callback: function | None = (None, callback)[callable]
+        self.callback: list
         self.annotations = annoations
         self.args = args
         self.TYPE: str
@@ -15,27 +15,30 @@ class VMObject:
                                       "[verbal]": VMObject.__verbal, 
                                       "[init]": VMObject.__initializer}
         self.__threadable__ = False
-        self.__exit_signal__ = False
+        self.__AutoCall__ = AutoCall
+        if self.__AutoCall__:
+            self.Run()
     
     def __call(self):
         if not self.callable:
             raise Panics.ObjectPanic("Calling an uncallable object ... nothing will be done")
         else:
-            self.callback(self.args)
+            for x in self.callback:
+                for j in self.args:
+                    x(j)
     
     def CompileAnnotations(self): # annotations contained in brakets connected with &
-        annot = self.annotations.split("&")
-        for x in annot:
-            if x in list(self.AcceptableAnnotations.keys):
-                self.AcceptableAnnotations[x]()
-            else:
-                raise Panics.ObjectPanic("An invalid annotation has been specified")
+        if len(self.annotations.split("&")) > 0 or self.annotations != "":
+            annot = self.annotations.split("&")
+            for x in annot:
+                if x in list(self.AcceptableAnnotations.keys()):
+                    self.AcceptableAnnotations[x]()
+                else:
+                    raise Panics.ObjectPanic("An invalid annotation has been specified")
     
     def Run(self):
+        self.CompileAnnotations()
         self.__call()
-        while True:
-            if self.__exit_signal__:
-                raise Panics.ExitSignal("Exit!")
 
     #Below are definition of annotations
     def __silent():

@@ -19,8 +19,8 @@ class Buffer:
     def PushContents(self, contents: any) -> tuple: #return index of the content in the given buffer
         if type(contents) != bool:
             self.contents.append(contents)
-            self.LastUsedSize: int = len(contents)
-            self.RemainingSize -= len(contents)
+            self.LastUsedSize: int = len(str(contents))
+            self.RemainingSize -= len(str(contents))
         elif type(contents) == bool:
             self.contents.append(contents)
             self.RemainingSize -= 1
@@ -118,16 +118,14 @@ class BufferMethods:
         return (_BufferName.RemainingSize, _BufferName.LastUsedSize)
     
     def AutoAllocate(Contents: any) -> tuple:
+        ContentSize: int = str(Contents).__len__()
         "Output Structure: (RemainingSize, ContentLength, BufferUsed, Index_in_Buffer)"
         UsableBuffers: list = []
         SizesOfBuffers: list = []
 
         for x in AviliableBuffers:
             BufferSize:int = globals()[x].RemainingSize
-            if len(Contents) <= BufferSize:
-                UsableBuffers.append(x)
-                SizesOfBuffers.append(BufferSize)
-            elif Contents.type == "Executable" and Contents.size <= BufferSize:
+            if ContentSize <= BufferSize:
                 UsableBuffers.append(x)
                 SizesOfBuffers.append(BufferSize)
 
@@ -135,8 +133,9 @@ class BufferMethods:
             ResultBuffer: Buffer = globals()[UsableBuffers[SizesOfBuffers.index(max(SizesOfBuffers))]]
         else:
             raise ValueError("Not enough Buffers with aviliable space")
-        
-        ResultBuffer.ReserveSpace(len(Contents))
+    
+
+        ResultBuffer.ReserveSpace(ContentSize)
         ResultBuffer.PushContents(contents=Contents)
         ResultBuffer.ClearReserve()
 
