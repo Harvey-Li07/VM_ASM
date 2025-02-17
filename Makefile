@@ -5,3 +5,11 @@ share:
 clear:
 	rm includes/compiled/CMethods.so
 	rm includes/compiled/CStrings.so
+
+pushable:
+	rm -rf __pycache__
+	rm -rf Pack/__pycache__
+	rm -rf SDK/PackImplementations/__pycache__
+	rm -rf SDK/SpecificProgramScope/__pycache__
+	rm -rf SystemPackMonitor/__pycache__
+	
