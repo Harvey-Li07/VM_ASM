@@ -1,4 +1,4 @@
-import threading
+import threading, typing
 from SDK.PackImplementations.IOPack import SysIO_IMPL as SysIO
 from Pack.SysIO import VMObject
 from SDK.PackImplementations.CompilerPack import ExecutableClass as executable
@@ -26,8 +26,11 @@ def StartThread(ThreadObject: threading.Thread):
     RunningThreads.append(ThreadObject)
     __ThreadingExit.update({ThreadObject.name: False})
 
+@typing.final
 def CheckForExit(ThreadObject: str) -> bool:
-    '''This will check if the current thread need to be exited, please loop through this function, if needed.
+    '''
+    CheckForExit is decorated by ```@typing.final``` \n
+    This will check if the current thread need to be exited, please loop through this function, if needed.
     \n One example may be:
 
     ```
