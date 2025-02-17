@@ -64,5 +64,5 @@ def sub(*args):
 def syscall(*args):
     if args[1] in RegisterAssests.AviliableRegisters:
         register: RegisterAssests.Register = getattr(RegisterAssests, args[1])
-        rp.ConsolePrint(register.PopContents())
+        print(register.PopContents())
     else: print("?")

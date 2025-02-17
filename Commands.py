@@ -44,3 +44,6 @@ def do(*args) -> None:
         contents.Call()
     else:
         raise FileNotFoundError("Cannot find the compiled object")
+    
+def exit(*args) -> None:
+    exit()
