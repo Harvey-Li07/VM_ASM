@@ -1,7 +1,9 @@
-# VM_ASM - EARLY EXPERIMENTATION VERSION
+# VM_ASM
  A simulated assembly implemented with Python
 
-> This Version is Not Stable at all. Do not implement this version to any stably released projects
+## Documentations
+
+ See Markdown files under Guides folder.
 
 ## License in Brief
 
