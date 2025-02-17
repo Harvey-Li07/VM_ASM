@@ -2,10 +2,9 @@ import sys
 
 sys.path.append('../VM_ASM')
 
-import RegisterAssests, Buffers
+import RegisterAssests, Buffers, pathlib, ReconfiguedPackages as rp
 
 def mov(*args):
-    print(f"Calling mov b/t {args[0]} and (args[1])")
     if args[0] in RegisterAssests.AviliableRegisters:
         Register1: RegisterAssests.Register = getattr(RegisterAssests, args[0])
         if args[1] in RegisterAssests.AviliableRegisters:
@@ -19,7 +18,6 @@ def mov(*args):
         raise NameError("Designated Register cannot be found.")
 
 def add(*args):
-    print(f"Calling add b/t {args[0]} and (args[1])")
     if args[0] in RegisterAssests.AviliableRegisters: 
         Register1: RegisterAssests.Register = getattr(RegisterAssests, args[0])
         if args[1] in RegisterAssests.AviliableRegisters:
@@ -53,7 +51,7 @@ def sub(*args):
             try: 
                 Register1.PopContents()
             except IndexError:
-                raise IndexError
+                raise IndexError("Nothing can be found in register 1.")
             else:
                 Result_From_Buffer: tuple = Buffers.BufferMethods.AutoAllocate(int(Register1.PopContents()) - int(Register2.PopContents()))
                 Register1.PushContents((Result_From_Buffer[2], Result_From_Buffer[3]))
@@ -64,9 +62,7 @@ def sub(*args):
         raise NameError("Designated Register cannot be found.")
     
 def syscall(*args):
-    print(args)
     if args[1] in RegisterAssests.AviliableRegisters:
-        print("\n ")
         register: RegisterAssests.Register = getattr(RegisterAssests, args[1])
-        print(register.PopContents())
+        rp.ConsolePrint(register.PopContents())
     else: print("?")

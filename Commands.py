@@ -11,7 +11,7 @@ def FilterFlags(*args) -> list[str]:
     return flags
 
 def CompileFlags(flags: list[str]) -> dict[str: "str"]:
-    CommonFlags: dict = {"s": "[silent]", "v": "[verbal]"}
+    CommonFlags: dict = {"s": "[silent]", "v": "[verbal]", "p": "..."}
     ...
 
 
@@ -39,7 +39,6 @@ def compile(*args) -> None:
 def do(*args) -> None:
     with open(pathlib.Path("SystemPack/Executables.vmp").absolute(), 'r') as f:
         valid_contents = f.readlines()
-        print(valid_contents)
     if args[0]+"\n" in valid_contents:
         contents: Compiler.ExecutableClass = Buffers.BufferMethods.RetrieveContents(Executables[args[:1][0][0:-4]])
         contents.Call()

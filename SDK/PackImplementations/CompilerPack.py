@@ -19,14 +19,7 @@ class ExecutableClass(Execuatable):
     @typing.override
     def Call(self):
         for x in range(0, self.InstructionSet.__len__()):
-            print(self.InstructionSet[x], *self.args[x])
             self.InstructionSet[x](*self.args[x])
-        '''
-        for x in self.InstructionSet:
-            current_step: int = self.InstructionSet.index(x)
-            current_argument = self.args[current_step]
-            x(*current_argument)
-        '''
 
     @typing.override
     def Run(self):
