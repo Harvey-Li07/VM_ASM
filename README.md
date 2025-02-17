@@ -15,8 +15,3 @@
 + Better buffer (RAM) management algorithm
 + Multiprocessing supports
 + More guides for users
-
-
-## WARNING
-
-+ This branch/version uses a customized implementation of the String class (See C_DataTypes_Guide)
