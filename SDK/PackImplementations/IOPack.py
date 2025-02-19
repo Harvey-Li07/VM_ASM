@@ -40,6 +40,11 @@ class SysIO_IMPL(SysIO):
 
 class SystemCall(SysCall):
     def __init__(self, callnum, *args):
+        try:
+            raise Warning("All code for syscall has *not* been throughly tested. Unexpected behaviors may occur.\
+                          Use with caution. ")
+        except Warning as w:
+            print(w)
         if hasattr(SystemCall, f"syscall_{callnum}"):
             getattr(SysCall, f"syscall_{callnum}")(args)
         else:
@@ -92,3 +97,5 @@ class SystemCall(SysCall):
             ThreadManager.__ThreadingExit.update({args[0]: True})
         else:
             raise ValueError("The specified Thread cannot be found.")
+        
+SystemCall(1)
