@@ -98,4 +98,3 @@ class SystemCall(SysCall):
         else:
             raise ValueError("The specified Thread cannot be found.")
         
-SystemCall(1)
