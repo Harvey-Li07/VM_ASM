@@ -11,6 +11,13 @@
 + Please share-alike, meaning share anything that you made off this project under GNU GPL 3.0
 + Please pay attribute in this form in your project if used: "Harvey Li, Virtual Machine Assembly Project."
 
+## Contribution
+We (I) welcome community contribution! To do so, create a new branch off from "Developing".
+ *Some Notes*
+
++ Make all PRs direct to the "Testing" branch.
++ For new PRs to Testing, approve and test
+
 ## Current Plans and Roadmap
 
 + Package commands
