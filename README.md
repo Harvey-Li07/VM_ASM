@@ -20,7 +20,9 @@ We (I) welcome community contribution! To do so, create a new branch off from "D
 
 ## Current Plans and Roadmap
 
-+ Package commands
 + Better buffer (RAM) management algorithm
-+ Multiprocessing supports
 + More guides for users
+
+## How to Run
+
+Use command: ```make run```
