@@ -1,13 +1,11 @@
 import threading, typing
-from SDK.PackImplementations.IOPack import SysIO_IMPL as SysIO
 from Pack.SysIO import VMObject
-from SDK.PackImplementations.CompilerPack import ExecutableClass as executable
 
 RunningThreads: list[threading.Thread] = []
 
 __ThreadingExit: dict[str: bool] = {}
 
-def SpawnThread(CompiledObject: VMObject | executable) -> threading.Thread:
+def SpawnThread(CompiledObject: VMObject) -> threading.Thread:
 
     '''
     This function will spawn a thread object in a safe and organized manner but it will

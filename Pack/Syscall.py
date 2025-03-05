@@ -3,9 +3,7 @@ import abc
 class SysCall(abc.ABC):
 
     @abc.abstractmethod
-    def __init__(self, callnum: int): 
-        '''This should just be the caller method '''
-        ...
+    def call(callnum, *args): ...
 
     @abc.abstractmethod
     def syscall_0(*args): 

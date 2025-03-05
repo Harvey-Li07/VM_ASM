@@ -1,5 +1,5 @@
 import SDK.PackImplementations.CompilerPack as Compiler
-import pathlib, os, Buffers
+import pathlib, os, Buffers, sys
 
 Executables: dict[str: tuple] = {}
 
@@ -39,11 +39,15 @@ def compile(*args) -> None:
 def do(*args) -> None:
     with open(pathlib.Path("SystemPack/Executables.vmp").absolute(), 'r') as f:
         valid_contents = f.readlines()
-    if args[0]+"\n" in valid_contents:
-        contents: Compiler.ExecutableClass = Buffers.BufferMethods.RetrieveContents(Executables[args[:1][0][0:-4]])
+    if args[0]+".vma\n" in valid_contents:
+        contents: Compiler.ExecutableClass = Buffers.BufferMethods.RetrieveContents(Executables[args[0]])
         contents.Call()
     else:
         raise FileNotFoundError("Cannot find the compiled object")
     
 def exit(*args) -> None:
-    exit()
+    sys.exit()
+
+def ClearBuffer(*args):
+    with open(pathlib.Path("SystemPack/Executables.vmp").absolute(), 'a+') as f:
+        f.truncate(0)

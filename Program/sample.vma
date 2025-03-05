@@ -3,5 +3,5 @@ mov bx, 2
 add ax, bx
 mov cx, 3
 sub cx, 1
-syscall 1, ax
-syscall 1, cx
+syscall 3, ax
+syscall 3, cx
