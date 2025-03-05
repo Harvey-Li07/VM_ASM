@@ -56,11 +56,11 @@ class Buffer:
 
 class DynamicBuffer(Buffer): 
 
-    '''NOTE: The size of the buffer may or may not be an integer power of 2
+    '''NOTE: The size of the buffer may or may not be an integer power of 2.
     The Following Methods are NOT Implemented and will NEVER be implemented:\n 
         1. ReserveSpace(self)
         2. ClearReserve(self)
-    calling on these methods will be resulting an error!
+    calling on these methods will be resulting an error.
     '''
 
     def __init__(self, name) -> None:
@@ -83,7 +83,7 @@ class DynamicBuffer(Buffer):
 
     @typing.override
     def ReserveSpace(self):
-        raise ModuleNotFoundError("You cannot reserve space on a DynamicBuffering")
+        raise ModuleNotFoundError("You cannot reserve space on a DynamicBuffer")
 
     @typing.override
     def ClearReserve(self):

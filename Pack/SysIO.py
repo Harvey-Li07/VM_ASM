@@ -76,11 +76,6 @@ class SysIO(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def Syscall(a: str, *args) -> None: 
-        '''Conduct a syscall. Should only be implemented **once**.'''
-        ...
-
-    @abc.abstractmethod
     def Kill(a: str, *args) -> None :
         '''Kill the current thread'''
         ...

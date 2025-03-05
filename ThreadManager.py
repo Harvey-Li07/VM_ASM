@@ -1,13 +1,11 @@
-import threading
-from SDK.PackImplementations.IOPack import SysIO_IMPL as SysIO
+import threading, typing
 from Pack.SysIO import VMObject
-from SDK.PackImplementations.CompilerPack import ExecutableClass as executable
 
 RunningThreads: list[threading.Thread] = []
 
 __ThreadingExit: dict[str: bool] = {}
 
-def SpawnThread(CompiledObject: VMObject | executable) -> threading.Thread:
+def SpawnThread(CompiledObject: VMObject) -> threading.Thread:
 
     '''
     This function will spawn a thread object in a safe and organized manner but it will
@@ -26,8 +24,11 @@ def StartThread(ThreadObject: threading.Thread):
     RunningThreads.append(ThreadObject)
     __ThreadingExit.update({ThreadObject.name: False})
 
+@typing.final
 def CheckForExit(ThreadObject: str) -> bool:
-    '''This will check if the current thread need to be exited, please loop through this function, if needed.
+    '''
+    CheckForExit is decorated by ```@typing.final``` \n
+    This will check if the current thread need to be exited, please loop through this function, if needed.
     \n One example may be:
 
     ```
