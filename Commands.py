@@ -21,7 +21,7 @@ def compile(*args) -> None:
     try:
         args[:0]
     except IndexError:
-        raise NameError("No target file found, stop")
+        raise NameError("compile: No target file found, stop")
     else:
         if os.path.exists(pathlib.Path(f"Program/{args[:1][0]}").absolute()):
             filepath = pathlib.Path(f"Program/{args[:1][0]}").absolute()
@@ -30,10 +30,10 @@ def compile(*args) -> None:
             LocalCompiler.CompileInstruction()
             r = LocalCompiler.SpawnExecutable()
         else:
-            raise FileNotFoundError("No target file found, stop")
+            raise FileNotFoundError("compile: No target file found, stop")
         with open(pathlib.Path(f"SystemPack/Executables.vmp").absolute(), "a") as f:
             f.write(args[:1][0] + '\n')
-        print(f"\nSuccessfully compiled {args[:1][0]}")
+        print(f"\ncompile: Successfully compiled {args[:1][0]}")
         Executables.update({args[:1][0][0:-4]: (r[2], r[3])})
 
 def do(*args) -> None:
@@ -43,7 +43,7 @@ def do(*args) -> None:
         contents: Compiler.ExecutableClass = Buffers.BufferMethods.RetrieveContents(Executables[args[0]])
         contents.Call()
     else:
-        raise FileNotFoundError("Cannot find the compiled object")
+        raise FileNotFoundError("do: Cannot find the compiled object")
     
 def exit(*args) -> None:
     sys.exit()
@@ -51,3 +51,7 @@ def exit(*args) -> None:
 def ClearBuffer(*args):
     with open(pathlib.Path("SystemPack/Executables.vmp").absolute(), 'a+') as f:
         f.truncate(0)
+    print("ClearBuffer: Done")
+
+def echo(*args):
+    print(*args)
