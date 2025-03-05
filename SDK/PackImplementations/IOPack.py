@@ -39,14 +39,16 @@ class SysIO_IMPL(SysIO):
         
 
 class SystemCall(SysCall):
-    def __init__(self, callnum, *args):
-        try:
-            raise Warning("All code for syscall has *not* been throughly tested. Unexpected behaviors may occur.\
-                          Use with caution. ")
-        except Warning as w:
-            print(w)
+    '''The implementation of Pack.Syscall.SysCall class'''
+    def call(callnum, *args):
+        #try:
+            #raise Warning("All code for syscall has *not* been throughly tested. Unexpected behaviors may occur.\
+            #              Use with caution. ")
+        #except Warning as w:
+            #print(w)
         if hasattr(SystemCall, f"syscall_{callnum}"):
-            getattr(SysCall, f"syscall_{callnum}")(args)
+            func = getattr(SystemCall, f"syscall_{callnum}")
+            func(*args)
         else:
             raise AttributeError("The System Call is not defined.")
     
@@ -74,8 +76,7 @@ class SystemCall(SysCall):
     @override
     def syscall_3(*args):
         r: RegisterAssests.Register = SystemCall.__SuperRegister__(args[0])
-        ConsolePrint(r.PopContents())
-        ConsolePrint("")
+        print(r.PopContents())
     
     @override
     def syscall_4(*args):
