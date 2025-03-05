@@ -1,5 +1,5 @@
 from Pack.SysIO import VMObject
-import abc, sys
+import abc
 
 class Execuatable(abc.ABC, VMObject):
     def __init__(self, annoations = None): #spawn an execuatble object

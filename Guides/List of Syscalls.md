@@ -8,5 +8,5 @@
 | 3          | display the current value of the register on output                  |
 | 4          | reserve the current register/register of operation                   |
 | 5          | reset the current register                                           |
-| 6          | retrieve and spawn an executable based on the current register value |
+| 6          | retrieve and spawn an executable based on the current register value from buffer |
 | 7          | kill the current thread                                              |

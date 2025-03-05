@@ -3,6 +3,7 @@ import sys
 sys.path.append('../VM_ASM')
 
 import RegisterAssests, Buffers, pathlib, ReconfiguedPackages as rp
+from SDK.PackImplementations.IOPack import SystemCall
 
 def mov(*args):
     if args[0] in RegisterAssests.AviliableRegisters:
@@ -62,7 +63,5 @@ def sub(*args):
         raise NameError("Designated Register cannot be found.")
     
 def syscall(*args):
-    if args[1] in RegisterAssests.AviliableRegisters:
-        register: RegisterAssests.Register = getattr(RegisterAssests, args[1])
-        print(register.PopContents())
-    else: print("?")
+    #conduct a syscall
+    SystemCall.call(args[0],args[1])
