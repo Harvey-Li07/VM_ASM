@@ -1,4 +1,5 @@
 import SDK.PackImplementations.CompilerPack as Compiler
+import SDK.PackImplementations.VMMethods as VMMethods
 import pathlib, os, Buffers, sys
 
 Executables: dict[str: tuple] = {}
@@ -55,3 +56,7 @@ def ClearBuffer(*args):
 
 def echo(*args):
     print(*args)
+
+def debug(*args):
+    
+    VMMethods.DebugMode()

@@ -19,7 +19,7 @@ while True:
     except FileNotFoundError as f:
         print(f'Shell: Exception at {f}')
     except AttributeError as a:
-        print(f'Shell: Exception at {a}')
+        print(f'Shell: Exception at {a}. Command Not Found')
     except Exception as e:
-        print(f"\n Exception at: {e} \n VM State: STOPPED \n")
+        print(f"\n Shell: Fatal Exception at: {e} \n VM State: STOPPED \n")
         sys.exit(1)
