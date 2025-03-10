@@ -38,12 +38,14 @@ def compile(*args) -> None:
                 LocalCompiler.GetInstructions(instruction_file.read())
             LocalCompiler.CompileInstruction()
             r = LocalCompiler.SpawnExecutable()
+            print(f"\ncompile: Successfully compiled {args[:1][0]}")
+            Executables.update({args[:1][0][0:-4]: (r[2], r[3])})
+            with open(pathlib.Path(f"SystemPack/Executables.vmp").absolute(), "a") as f:
+                f.write(args[:1][0] + '\n')
         else:
             raise FileNotFoundError("compile: No target file found, stop")
-        with open(pathlib.Path(f"SystemPack/Executables.vmp").absolute(), "a") as f:
-            f.write(args[:1][0] + '\n')
-        print(f"\ncompile: Successfully compiled {args[:1][0]}")
-        Executables.update({args[:1][0][0:-4]: (r[2], r[3])})
+        
+        
 
 def do(*args) -> None:
     with open(pathlib.Path("SystemPack/Executables.vmp").absolute(), 'r') as f:
@@ -76,7 +78,7 @@ def run(*args):
         for x in lyrics:
             time.sleep(0.5)
             print(x,'\n')
-        raise ValueError("Urinetown. Urinetown is actually a metaphysical place.")
+        raise ValueError("Urinetown is less of a place but a metaphysical place.")
     else:
         do(*args)
 
@@ -113,7 +115,7 @@ def set(*args):
             for x in Set_log:
                 f.write(x)
                 f.write('\n')
-    else:
+    if len(args) <= 1:
         raise ValueError("the command 'set' must have at least 2 arguments")
     if args[0] in list(pv.CommandLineBehavior.keys()):
         if args[1] == 'true' or args[1] == 'false':
@@ -125,4 +127,4 @@ def set(*args):
         raise ValueError(f"expected a CommandLineBehavior field, {args[0]} found")
     
 def help(*args):
-    print('All commands: (1) compile \n (2) do \n (3) echo \n (4) debug \n (5) clear \n (6) snap \n (7) set')
+    print('Valid Commands: \n (1) compile \n (2) do \n (3) echo \n (4) debug \n (5) clear \n (6) snap \n (7) set')

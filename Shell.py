@@ -1,33 +1,29 @@
-import VMInit, sys, Commands, PublicVariables as pv
-
-exit_counter: int = 1
+import VMInit, sys, Commands, PublicVariables as pv, readline
 
 VMInit.freshBoot()
 
-print("\n VM State: RUNNING \n")
+print("VM State: RUNNING \n")
 while True:
     try:
         CommandInput: str = input("> ")
         CommandSplited : list[str] = CommandInput.split()
         getattr(Commands, CommandSplited[0])(*CommandSplited[1:])
     except KeyboardInterrupt:
-        if exit_counter != 2:
-            print("\nTo exit, click on Control + C again.")
-            exit_counter += 1
+        if pv.CommandLineBehavior["allow_control_c_override"]:
+            sys.exit(0)
         else:
-            if pv.CommandLineBehavior["allow_ctrl_c_override"]:
-                sys.exit()
-            else:
-                print("Shell: Cannot exit upon Control + C, change this by using command: set allow_control_c_override true")
+            print("Shell: Exit upon Control + C failed, change this by using command: ```set allow_control_c_override true```")
     except IndexError as e:
-        print(f"Shell: Exception at: {e}")
+        print(f"Shell: {e}")
     except FileNotFoundError as f:
-        print(f'Shell: Exception at {f}')
+        print(f'Shell: {f}')
     except AttributeError as a:
-        print(f'Shell: Exception at {a}. Command Not Found')
+        print(f'Shell: {a}. Command Not Found')
     except ValueError as v:
-        print(f'Shell: Exception at {v}')
+        print(f'Shell: {v}')
     except Exception as e:
-        print(f"\n Shell: Fatal Exception at: {e} \n VM State: STOPPED \n")
+        print(f"\n Shell: Fatal Exception: {e}")
         if pv.CommandLineBehavior["exit_on_fatal_error"]:
+            print("VM State: STOPPED \n")
             sys.exit(1)
+        

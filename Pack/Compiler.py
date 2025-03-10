@@ -28,7 +28,7 @@ class CompilerBase(abc.ABC):
     @abc.abstractmethod
     def CompileInstruction(self) -> None: 
         '''This will compile all the instructions provided in a custom property from self
-        in SysIO.VMObject and/or its custom implementations in IOPack
+        in ```SysIO.VMObject``` and/or its custom implementations in IOPack
         '''
         ...
 

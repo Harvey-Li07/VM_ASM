@@ -14,13 +14,13 @@ def use(*arg):
     else:
         raise FileNotFoundError("Please specify a path to your custom SDK")
     
-def global_property(*arg: list[str]):
+def global_property(*arg):
     if arg[0] in list(Constants.PROGRAM_METADATA.keys()):
         Constants.PROGRAM_METADATA.update({arg[0].captalize(): arg[1]})
     else:
         raise SyntaxError("The property specified is invalid. For SDK version 1.1+, use @create to create the property")
     
-def create(*arg: list[str]):
+def create(*arg):
     assert Constants.PROGRAM_METADATA["SDK_VERSION"] != "1.0", "This method is not supported in SDK version < 1.1"
     if arg[2] in list(keywords.keys()):
         Constants.PROGRAM_METADATA.update({arg[2]: arg[3]})
