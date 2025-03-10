@@ -13,6 +13,9 @@ class Execuatable(abc.ABC, VMObject):
     def __len__(self) -> int: ...
 
     @abc.abstractmethod
+    def __code__(self) -> list[str]: ...
+
+    @abc.abstractmethod
     def Call(self) -> None: ...
 
 
