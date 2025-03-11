@@ -9,7 +9,7 @@ lyrics: list[str] = ["Run freedom run", 'freedom run away', 'my friends you have
                      'freedom run away!', 'that freedom sun', 'will shine someday',
                      'till then you better run', 'runa runa run', 'Freedom run away!', 'There\'s a trickle of sweat', 
                      'Drippin\' in your ear', 'But still, you gotta run', 'runa, runa, run', 'Freedom run away!', 'So now, don\'t you fret',
-                     'And never fear!', 'Till freedom\'s', 'Won, wona, wona, won', 'Freedom run away!', 
+                     'And never fear!', 'Till freedom\'s', 'Won, wona, wona, won', 'Freedom run away!', 'There\'s a great big Cladwell on your tail',
                      'https://youtu.be/ncQ1dvcHEn8?si=aTHG_9_qysRHWwoz']
 
 def FilterFlags(*args) -> list[str]:
@@ -88,7 +88,8 @@ def snap(*args):
     for x in list(Executables.keys()):
         contents: Compiler.ExecutableClass = Buffers.BufferMethods.RetrieveContents(Executables[x])
         with open(f"Snap/temp.py", 'w+') as f:
-            f.write("import sys\nsys.path.append('../VM_ASM')\nfrom SDK.PackImplementations.VMMethods import *\n")
+            f.write("#This file should only be run as a pyc file as it requires a live VM environment \
+                    \nimport sys\nsys.path.append('../VM_ASM')\nfrom SDK.PackImplementations.VMMethods import *\n")
             for i in range(0, len(contents.__code__()[0])):
                 c = f"{contents.__code__()[0][i].__name__}('{contents.__code__()[1][i][0]}', '{contents.__code__()[1][i][1]}')\n"
                 f.write(c)
@@ -110,13 +111,13 @@ def clear(*args):
 
 def set(*args):
     t_f: dict = {'true': True, 'false':False}
+    if len(args) <= 1:
+        raise ValueError("the command 'set' must have at least 2 arguments")
     if args[0] == 'consolidate':
         with open("SystemPack/operation_on_boot.vmp", 'a+') as f:
             for x in Set_log:
                 f.write(x)
                 f.write('\n')
-    if len(args) <= 1:
-        raise ValueError("the command 'set' must have at least 2 arguments")
     if args[0] in list(pv.CommandLineBehavior.keys()):
         if args[1] == 'true' or args[1] == 'false':
             pv.CommandLineBehavior.update({args[0]: t_f[args[1]]})
