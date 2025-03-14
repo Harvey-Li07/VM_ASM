@@ -6,8 +6,12 @@ print("VM State: RUNNING \n")
 while True:
     try:
         CommandInput: str = input("> ")
-        CommandSplited : list[str] = CommandInput.split()
-        getattr(Commands, CommandSplited[0])(*CommandSplited[1:])
+        CommandSplited : list[str] = CommandInput.split()  
+        if CommandSplited[0][0:2] == "./":
+            Commands.do(CommandSplited[0][2:])
+        else:
+            getattr(Commands, CommandSplited[0])(*CommandSplited[1:])
+
     except KeyboardInterrupt:
         if pv.CommandLineBehavior["allow_control_c_override"]:
             sys.exit(0)

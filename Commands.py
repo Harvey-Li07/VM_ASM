@@ -44,23 +44,25 @@ def compile(*args) -> None:
                 f.write(args[:1][0] + '\n')
         else:
             raise FileNotFoundError("compile: No target file found, stop")
-        
-        
 
 def do(*args) -> None:
     with open(pathlib.Path("SystemPack/Executables.vmp").absolute(), 'r') as f:
         valid_contents = f.readlines()
-    if args[0]+".vma\n" in valid_contents:
-        contents: Compiler.ExecutableClass = Buffers.BufferMethods.RetrieveContents(Executables[args[0]])
-        contents.Call()
-    else:
-        raise FileNotFoundError("do: Cannot find the compiled object")
+        if args[0]+".vma\n" in valid_contents:
+            contents: Compiler.ExecutableClass = Buffers.BufferMethods.RetrieveContents(Executables[args[0]])
+            contents.Call()
+        else:
+            raise FileNotFoundError("do: Cannot find the compiled object")
     
 def exit(*args) -> None:
+    print("Shell: Bye!")
     if len(args) != 0:
         sys.exit(int(args[0]))
     else:
         sys.exit(0)
+
+def relinquishment(*args):
+    exit(*args)
 
 def ClearBuffer(*args):
     with open(pathlib.Path("SystemPack/Executables.vmp").absolute(), 'a+') as f:
@@ -126,6 +128,12 @@ def set(*args):
         Set_log.append(f"set {args[0]} {args[1]}")
     else:
         raise ValueError(f"expected a CommandLineBehavior field, {args[0]} found")
+    
+def list(*args):
+    with open(pathlib.Path("SystemPack/Executables.vmp").absolute(), 'r') as f:
+        for x in f.readlines():
+            print(x[0:-5])
+
     
 def help(*args):
     print('Valid Commands: \n (1) compile \n (2) do \n (3) echo \n (4) debug \n (5) clear \n (6) snap \n (7) set')
