@@ -38,7 +38,7 @@ def compile(*args) -> None:
                 LocalCompiler.GetInstructions(instruction_file.read())
             LocalCompiler.CompileInstruction()
             r = LocalCompiler.SpawnExecutable()
-            print(f"\ncompile: Successfully compiled {args[:1][0]}")
+            print(f"compile: Successfully compiled {args[:1][0]}")
             Executables.update({args[:1][0][0:-4]: (r[2], r[3])})
             with open(pathlib.Path(f"SystemPack/Executables.vmp").absolute(), "a") as f:
                 f.write(args[:1][0] + '\n')
