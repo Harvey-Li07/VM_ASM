@@ -1,3 +1,4 @@
+
 clean:
 	rm -rf __pycache__
 	rm -rf Pack/__pycache__
@@ -5,4 +6,5 @@ clean:
 	rm -rf SDK/SpecificProgramScope/__pycache__
 	rm -rf SystemPackMonitor/__pycache__
 run:
-	python3 Shell.py
+	@echo "Starting... \n"
+	@python3 Shell.py

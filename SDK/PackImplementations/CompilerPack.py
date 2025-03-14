@@ -26,6 +26,10 @@ class ExecutableClass(Execuatable):
         self.Call()
 
     @typing.override
+    def __code__(self):
+        return [self.InstructionSet, self.args]
+
+    @typing.override
     def __len__(self):
         return (int(sys.getsizeof(self)/ 100), 10)[int(sys.getsizeof(self)/ 100) < 1]
 
@@ -65,3 +69,6 @@ class Compiler(CompilerBase):
         Exec.InstructionSet = self.__CompiledInstructions__[0]
         Exec.args = self.__CompiledInstructions__[1]
         return buffer.BufferMethods.AutoAllocate(Exec)
+
+def VMSnapshot(*args):
+    ...
