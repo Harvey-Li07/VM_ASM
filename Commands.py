@@ -12,21 +12,8 @@ lyrics: list[str] = ["Run freedom run", 'freedom run away', 'my friends you have
                      'And never fear!', 'Till freedom\'s', 'Won, wona, wona, won', 'Freedom run away!', 'There\'s a great big Cladwell on your tail',
                      'https://youtu.be/ncQ1dvcHEn8?si=aTHG_9_qysRHWwoz']
 
-def FilterFlags(*args) -> list[str]:
-    flags: list[int] = []
-    for x in args:
-        if x[0] == "-":
-            flags.append(args[args.index(x)][1:])
-    return flags
-
-def CompileFlags(flags: list[str]) -> dict[str: "str"]:
-    CommonFlags: dict = {"s": "[silent]", "v": "[verbal]", "p": "..."}
-    ...
-
-
 def compile(*args) -> None:
     LocalCompiler: Compiler.Compiler = Compiler.Compiler() #generate a constructor
-    flags = FilterFlags(args)
     try:
         args[:0]
     except IndexError:
@@ -50,7 +37,7 @@ def do(*args) -> None:
         valid_contents = f.readlines()
         if args[0]+".vma\n" in valid_contents:
             contents: Compiler.ExecutableClass = Buffers.BufferMethods.RetrieveContents(Executables[args[0]])
-            contents.Call()
+            contents.Run()
         else:
             raise FileNotFoundError("do: Cannot find the compiled object")
     
@@ -60,9 +47,6 @@ def exit(*args) -> None:
         sys.exit(int(args[0]))
     else:
         sys.exit(0)
-
-def relinquishment(*args):
-    exit(*args)
 
 def ClearBuffer(*args):
     with open(pathlib.Path("SystemPack/Executables.vmp").absolute(), 'a+') as f:
