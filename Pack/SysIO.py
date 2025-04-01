@@ -5,7 +5,7 @@ import Panics as Panics, abc
 class VMObject:
 
     def __init__(self, callable: bool, annoations: str = "", AutoCall: bool = False, args:list[str] = None):
-        #it will spawn a new VMObject
+        '''This will spawn a new VMObject'''
         self.callable = callable
         self.callback: list
         self.annotations = annoations
@@ -20,6 +20,7 @@ class VMObject:
             self.Run()
     
     def __call(self):
+        '''A 'private' method for calling this VMObject. Used in Run(self)'''
         if not self.callable:
             raise Panics.ObjectPanic("Calling an uncallable object ... nothing will be done")
         else:
@@ -28,6 +29,7 @@ class VMObject:
                     x(j)
     
     def CompileAnnotations(self): # annotations contained in brakets connected with &
+        '''This will compile all annotations if needed.'''
         if len(self.annotations.split("&")) > 0 or self.annotations != "":
             annot = self.annotations.split("&")
             for x in annot:
@@ -37,14 +39,17 @@ class VMObject:
                     raise Panics.ObjectPanic("An invalid annotation has been specified")
     
     def Run(self):
+        '''Call the current VMObject'''
         self.CompileAnnotations()
         self.__call()
 
     #Below are definition of annotations
     def __silent():
+        '''make sure the object does not print anything'''
         scope.PhoneBook.update({"DEFAULT_OUT":None})
 
     def __verbal():
+        '''Make sure the object print everything'''
         scope.PhoneBook.update({"DEFAULT_OUT":"Register"})
 
     def __initializer(): #PLEASE FOR THE LOVE OF GOD, OVERRIDE THIS METHOD WHEN USE

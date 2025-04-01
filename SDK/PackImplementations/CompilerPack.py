@@ -3,11 +3,12 @@ import sys, typing
 sys.path.append('../VM_ASM')
 
 from Pack.Compiler import CompilerBase, Execuatable 
-import Pack.Keywords as keywords
 import SDK.PackImplementations.VMMethods as VMMethods
 import Buffers as buffer
 
 class ExecutableClass(Execuatable):
+
+    '''This is the implementation of the Executable object, all comments are inherited. '''
     
     def __init__(self, annoations=None):
         super().__init__(annoations)
@@ -36,6 +37,8 @@ class ExecutableClass(Execuatable):
 
 class Compiler(CompilerBase):
 
+    '''This is the implementation of the Compiler class. '''
+
     def __init__(self):
         super().__init__()
         self.__CompiledInstructions__ = []
@@ -54,13 +57,9 @@ class Compiler(CompilerBase):
         CompiledInstruction: list = []
         Arguments: list = []
         for x in self.RawInstructions:
-            if x[0] == "@":
-                line: list = x.split(sep=' ')
-                keywords.keywords[x[1:]](*line)
-            else:
-                line: list[str] = x.split(sep=" ")
-                CompiledInstruction.append(getattr(VMMethods, line[0]))
-                Arguments.append([line[1].replace(",", ""), line[2]])
+            line: list[str] = x.split(sep=" ")
+            CompiledInstruction.append(getattr(VMMethods, line[0]))
+            Arguments.append([line[1].replace(",", ""), line[2]])
         self.__CompiledInstructions__ = [CompiledInstruction, Arguments]
     
     @typing.override
@@ -71,4 +70,5 @@ class Compiler(CompilerBase):
         return buffer.BufferMethods.AutoAllocate(Exec)
 
 def VMSnapshot(*args):
-    ...
+    '''Should take a snapshot of the VM state and store it for next time. Will be implemented later. '''
+    raise NotImplementedError

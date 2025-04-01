@@ -1,4 +1,4 @@
-import Buffers, typing, ReconfiguedPackages
+import Buffers, typing, ReconfiguedPackages, warnings
 
 AviliableRegisters: list = ["ax", "bx", "cx", "dx", "ex", "fx"]
 
@@ -7,19 +7,6 @@ class Null:
         self.binarify = False
         self.binary = None
         self.booleanfy = False
-
-class RegisterPlace:
-    def Convert(self, contents: any):
-        if type(contents) != bool:
-            boolean_ified_contents: bool = (False, True)[
-                len(contents)
-            ]
-        else:
-            boolean_ified_contents = contents
-        self.place = (0, 1)[
-            (False, True)[boolean_ified_contents]
-        ]
-        return Buffers.BufferMethods.AutoAllocate(self.place)
 
 class Register:
     def __init__(self, name: str) -> None:
@@ -52,13 +39,15 @@ class Register:
         content = self.Contents[0]
        # self.Contents.remove(self.Contents[0])
         return content
-
+    
+    @warnings.deprecated("Bad. Although these are valid methods, registers should not be randomly accessed")
     def RandAccess(self, index: int):
         if index + 1 <= len(self.Contents):
             return self.Contents[index]
         else:
             return Null
-        
+
+
 class PlaceRegister(Register):
     def __init__(self, name: str) -> None:
         super().__init__(name)
@@ -81,6 +70,7 @@ class PlaceRegister(Register):
 
 class RegisterMethods:
     def RAWCompare(register1: Register, register2: Register):
+        '''A raw form of comparing as they does not push the result to a register'''
         if register1.PopContents() == register2.PopContents():
             result = Buffers.BufferMethods.AutoAllocate("1")
         else:
@@ -88,12 +78,11 @@ class RegisterMethods:
         return result
 
     def Compare(register1: Register, register2: Register, resultRegister: PlaceRegister):
-        if register1.PopContents() == register2.PopContents():
-            result = Buffers.BufferMethods.AutoAllocate("1")
-        else:
-            result = Buffers.BufferMethods.AutoAllocate("0")
+        '''This will push the result of the comparison register to the result register'''
+        result = RegisterMethods.RAWCompare(register1, register2)
         resultRegister.PushContents((result[2], result[3]))
 
+    @warnings.deprecated("This does not check for types or validity of the comparison. Use sub instead")
     def Subtraction(register1: Register, register2: Register):
         try:
             int(register1.PopContents())

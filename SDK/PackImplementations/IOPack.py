@@ -10,6 +10,8 @@ from Pack.Syscall import SysCall
 import pathlib, sys, RegisterAssests, Buffers, ThreadManager
 
 class SysIO_IMPL(SysIO):
+
+    '''The implementation of SysIO'''
     
     @Implementation
     def __init__(self):
@@ -41,11 +43,6 @@ class SysIO_IMPL(SysIO):
 class SystemCall(SysCall):
     '''The implementation of Pack.Syscall.SysCall class'''
     def call(callnum, *args):
-        #try:
-            #raise Warning("All code for syscall has *not* been throughly tested. Unexpected behaviors may occur.\
-            #              Use with caution. ")
-        #except Warning as w:
-            #print(w)
         if hasattr(SystemCall, f"syscall_{callnum}"):
             func = getattr(SystemCall, f"syscall_{callnum}")
             func(*args)

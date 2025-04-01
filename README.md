@@ -1,4 +1,4 @@
-# VM_ASM
+# VM_ASM - Virtual Machine Assembly Project
  A simulated assembly implemented with Python
 
 ## Documentations
@@ -26,3 +26,7 @@ We (I) welcome community contribution! To do so, create a new branch off from "D
 ## How to Run
 
 Use command: ```make run```
+
+## Other Open-Sourced Project Used
+
++ GNU Readline from the GNU Readline Library: https://tiswww.cwru.edu/php/chet/readline/rltop.html#Availability

@@ -1,4 +1,3 @@
-
 clean:
 	rm -rf __pycache__
 	rm -rf Pack/__pycache__
@@ -8,3 +7,6 @@ clean:
 run:
 	@echo "Starting... \n"
 	@python3 Shell.py
+
+star:
+	@echo ?
