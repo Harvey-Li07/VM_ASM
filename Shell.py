@@ -1,4 +1,10 @@
-import VMInit, sys, Commands, PublicVariables as pv, readline
+import VMInit, sys, Commands, PublicVariables as pv, gnureadline
+
+'''
+Module gnureadline is an open-source software by the GNU Foundation and is licensed under GNU General Public License, version 3.
+This code wad made freely available by Chet Ramey and the GNU Foundation, the code can be obtained from: 
+https://tiswww.cwru.edu/php/chet/readline/rltop.html#Availability
+ '''
 
 VMInit.freshBoot()
 
