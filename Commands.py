@@ -13,7 +13,8 @@ lyrics: list[str] = ["Run freedom run", 'freedom run away', 'my friends you have
                      'https://youtu.be/ncQ1dvcHEn8?si=aTHG_9_qysRHWwoz']
 
 def compile(*args) -> None:
-    LocalCompiler: Compiler.Compiler = Compiler.Compiler() #generate a constructor
+    '''Compile the designated file. Input: full name of the file: abc.vma'''
+    LocalCompiler: Compiler.Compiler = Compiler.Compiler()
     try:
         args[:0]
     except IndexError:
@@ -33,6 +34,7 @@ def compile(*args) -> None:
             raise FileNotFoundError("compile: No target file found, stop")
 
 def do(*args) -> None:
+    '''Run the designated executable'''
     with open(pathlib.Path("SystemPack/Executables.vmp").absolute(), 'r') as f:
         valid_contents = f.readlines()
         if args[0]+".vma\n" in valid_contents:
@@ -42,6 +44,7 @@ def do(*args) -> None:
             raise FileNotFoundError("do: Cannot find the compiled object")
     
 def exit(*args) -> None:
+    '''Terminate the current shell session'''
     print("Shell: Bye!")
     if len(args) != 0:
         sys.exit(int(args[0]))
@@ -49,17 +52,21 @@ def exit(*args) -> None:
         sys.exit(0)
 
 def ClearBuffer(*args):
+    '''Clear the registered compiled executable'''
     with open(pathlib.Path("SystemPack/Executables.vmp").absolute(), 'a+') as f:
         f.truncate(0)
     print("ClearBuffer: Done")
 
 def echo(*args):
+    '''Test command, will return whatever is after the command'''
     print(*args)
 
 def debug(*args):
+    '''Enable debug mode'''
     VMMethods.DebugMode()
 
 def run(*args):
+    '''An alias of do'''
     if args[0] == "freedom" and random.randint(1, 4) == 1:
         for x in lyrics:
             time.sleep(0.5)
@@ -70,6 +77,7 @@ def run(*args):
 
 
 def snap(*args):
+    '''Take the snapshot of the VM, not tested. '''
     import py_compile
     for x in list(Executables.keys()):
         contents: Compiler.ExecutableClass = Buffers.BufferMethods.RetrieveContents(Executables[x])
@@ -82,6 +90,7 @@ def snap(*args):
         py_compile.compile(file="Snap/temp.py", cfile=f"Snap/Snap{list(Executables.keys()).index(x)}.pyc")
 
 def clear(*args):
+    '''Clear the current screen of inputs'''
     if len(args) > 0:
         try:
             int(args[0])
@@ -96,6 +105,7 @@ def clear(*args):
         print('\033[%d;%dH' % (0, 0))
 
 def set(*args):
+    '''Set command line behaviors'''
     t_f: dict = {'true': True, 'false':False}
     if len(args) <= 1:
         raise ValueError("the command 'set' must have at least 2 arguments")
@@ -114,10 +124,12 @@ def set(*args):
         raise ValueError(f"expected a CommandLineBehavior field, {args[0]} found")
     
 def list(*args):
+    '''List the registered compiled executables'''
     with open(pathlib.Path("SystemPack/Executables.vmp").absolute(), 'r') as f:
         for x in f.readlines():
             print(x[0:-5])
 
     
 def help(*args):
+    '''Print all valid commands'''
     print('Valid Commands: \n (1) compile \n (2) do \n (3) echo \n (4) debug \n (5) clear \n (6) snap \n (7) set')

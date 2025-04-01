@@ -3,7 +3,8 @@ NumberedContents: dict = {}
 CodeStructure: dict = {}
 
 def freshBoot():
+    '''Make sure it is a fresh boot'''
     Buffers.BufferInit()
     RegisterAssests.RegisterInit()
-    ReconfiguedPackages.ConsolePrint("VM Init. finished")
+    ReconfiguedPackages.ConsolePrint("VM Init. finished\n")
     ReconfiguedPackages.ConsolePrint("")
