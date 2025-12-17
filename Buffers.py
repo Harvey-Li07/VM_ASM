@@ -75,9 +75,6 @@ class BufferMethods:
     
     def AutoAllocate(Contents: any) -> tuple:
 
-        '''Automatically allocate the contents to a buffer.
-        Output Structure: (RemainingSize, ContentLength, BufferUsed, Index_in_Buffer) '''
-
         ContentSize: int = str(Contents).__len__()
         UsableBuffers: list = []
         SizesOfBuffers: list = []

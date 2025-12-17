@@ -1,7 +1,7 @@
-mov ax, 1
-mov bx, 2
+mov ax, 9
+mov bx, 7
 add ax, bx
-mov cx, 3
-sub cx, 1
+mov cx, 8
+sub cx, 711
 syscall 3, ax
 syscall 3, cx

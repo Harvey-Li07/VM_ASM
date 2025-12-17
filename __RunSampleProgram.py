@@ -1,5 +1,5 @@
 '''This program will:
-    run the sample program at Program/sample.vma
+    run the sample program at Program/sample.vma. Not part of the program's function. Demo purpose only
 
 '''
 
