@@ -1,6 +1,6 @@
 import SDK.PackImplementations.CompilerPack as Compiler
 import SDK.PackImplementations.VMMethods as VMMethods
-import pathlib, os, Buffers, sys, random, time, PublicVariables as pv
+import pathlib, os, Buffers, sys, random, time, webbrowser, PublicVariables as pv
 
 Set_log: list = []
 
@@ -10,7 +10,7 @@ lyrics: list[str] = ["Run freedom run", 'freedom run away', 'my friends you have
                      'till then you better run', 'runa runa run', 'Freedom run away!', 'There\'s a trickle of sweat', 
                      'Drippin\' in your ear', 'But still, you gotta run', 'runa, runa, run', 'Freedom run away!', 'So now, don\'t you fret',
                      'And never fear!', 'Till freedom\'s', 'Won, wona, wona, won', 'Freedom run away!', 'There\'s a great big Cladwell on your tail',
-                     'https://youtu.be/ncQ1dvcHEn8?si=aTHG_9_qysRHWwoz']
+                     ]
 
 def compile(*args) -> None:
     '''Compile the designated file. Input: full name of the file: abc.vma'''
@@ -67,10 +67,13 @@ def debug(*args):
 
 def run(*args):
     '''An alias of do'''
-    if args[0] == "freedom" and random.randint(1, 4) == 1:
+    if args[0] == "freedom" and random.randint(1, 1) == 1:
         for x in lyrics:
             time.sleep(0.5)
             print(x,'\n')
+
+        webbrowser.open_new('https://youtu.be/ncQ1dvcHEn8?si=aTHG_9_qysRHWwoz')
+    
         raise ValueError("Urinetown is less of a place but a metaphysical place.")
     else:
         do(*args)
@@ -96,7 +99,7 @@ def clear(*args):
             int(args[0])
         except Exception:
             raise 
-        for x in range(args[0]):
+        for _ in range(args[0]):
             print('\n')
         print('\033[%d;%dH' % (0, 0))
     else:

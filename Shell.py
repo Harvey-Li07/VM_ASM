@@ -24,15 +24,15 @@ while True:
         else:
             print("Shell: Exit upon Control + C failed, change this by using command: ```set allow_control_c_override true```")
     except IndexError as e:
-        print(f"Shell: {e}")
+        print(f"Shell: ({type(e).__name__}) {e}")
     except FileNotFoundError as f:
-        print(f'Shell: {f}')
+        print(f'Shell: ({type(f).__name__}) {f}')
     except AttributeError as a:
         print(f'Shell: {a}. Command Not Found')
     except ValueError as v:
-        print(f'Shell: {v}')
+        print(f'Shell: ({type(v).__name__}) {v}')
     except Exception as e:
-        print(f"\n Shell: Fatal Exception: {e}")
+        print(f"\n Shell: Fatal Exception: ({type(e).__name__}) {e}")
         if pv.CommandLineBehavior["exit_on_fatal_error"]:
             print("VM State: STOPPED \n")
             sys.exit(1)
